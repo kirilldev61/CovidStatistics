@@ -55,7 +55,11 @@ const MainScreen = () => {
   if (fetching || error) {
     return (
       <View style={styles.emptyContainer}>
-        {error ? <Text>Something went wrong</Text> : <ActivityIndicator />}
+        {error ? (
+          <Text>Something went wrong</Text>
+        ) : (
+          <ActivityIndicator size={'large'} />
+        )}
       </View>
     );
   }
