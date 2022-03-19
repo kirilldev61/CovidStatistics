@@ -34,3 +34,5 @@ This template follows a very simple project structure:
   - `App.js`: Main component that starts your whole app.
   - `index.js`: Entry point of your application as per React-Native standards.
 
+## Usage
+Here is a recording how the app works.
