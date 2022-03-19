@@ -36,3 +36,7 @@ This template follows a very simple project structure:
 
 ## Usage
 Here is a recording how the app works.
+
+
+https://user-images.githubusercontent.com/101930089/159120357-84dc912e-9990-4a70-bbe1-ef32939c4a2a.mp4
+
