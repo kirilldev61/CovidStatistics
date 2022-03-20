@@ -1,7 +1,16 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import {SortController} from '../hooks';
+import {SORT_KEY} from '../types';
 import {colors} from '../utilities';
+import ImageIcon from './ImageIcon';
 interface Props {
   sortController: SortController;
 }
@@ -17,19 +26,41 @@ const StatisticListHeader = ({sortController}: Props) => {
   const renderSortIcon = () => {
     if (orderKey) {
       return orderKey === 'asc' ? (
-        <Image
-          style={styles.sortIcon}
-          source={require('../assets/png/up-arrow.png')}
-        />
+        <ImageIcon style={styles.sortIcon} iconName="arrowUp" />
       ) : (
-        <Image
-          style={styles.sortIcon}
-          source={require('../assets/png/down-arrow.png')}
-        />
+        <ImageIcon style={styles.sortIcon} iconName="arrowDown" />
       );
     }
     return null;
   };
+
+  const renderHeaderItem = (
+    keyName: SORT_KEY,
+    description: string,
+    style?: StyleProp<ViewStyle>,
+  ) => {
+    return (
+      <View style={[styles.itemContainer, style]}>
+        <TouchableOpacity
+          onPress={() => {
+            if (sortKey === keyName) {
+              onChangeOrder();
+            }
+            onChangeSortKey(keyName);
+          }}>
+          <Text
+            style={[
+              styles.desLabel,
+              sortKey === keyName && styles.selectedText,
+            ]}>
+            {description}
+          </Text>
+        </TouchableOpacity>
+        {sortKey === keyName && renderSortIcon()}
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={[styles.itemContainer]}>
@@ -37,60 +68,9 @@ const StatisticListHeader = ({sortController}: Props) => {
           COUNTRY
         </Text>
       </View>
-      <View style={[styles.itemContainer]}>
-        <TouchableOpacity
-          onPress={() => {
-            if (sortKey === 'TotalConfirmed') {
-              onChangeOrder();
-            }
-            onChangeSortKey('TotalConfirmed');
-          }}>
-          <Text
-            style={[
-              styles.desLabel,
-              sortKey === 'TotalConfirmed' && styles.selectedText,
-            ]}>
-            CONFIRMED
-          </Text>
-        </TouchableOpacity>
-        {sortKey === 'TotalConfirmed' && renderSortIcon()}
-      </View>
-      <View style={[styles.itemContainer]}>
-        <TouchableOpacity
-          onPress={() => {
-            if (sortKey === 'TotalRecovered') {
-              onChangeOrder();
-            }
-            onChangeSortKey('TotalRecovered');
-          }}>
-          <Text
-            style={[
-              styles.desLabel,
-              sortKey === 'TotalRecovered' && styles.selectedText,
-            ]}>
-            RECOVERED
-          </Text>
-        </TouchableOpacity>
-        {sortKey === 'TotalRecovered' && renderSortIcon()}
-      </View>
-      <View style={[styles.smallItemContainer]}>
-        <TouchableOpacity
-          onPress={() => {
-            if (sortKey === 'TotalDeaths') {
-              onChangeOrder();
-            }
-            onChangeSortKey('TotalDeaths');
-          }}>
-          <Text
-            style={[
-              styles.desLabel,
-              sortKey === 'TotalDeaths' && styles.selectedText,
-            ]}>
-            DEATH
-          </Text>
-        </TouchableOpacity>
-        {sortKey === 'TotalDeaths' && renderSortIcon()}
-      </View>
+      {renderHeaderItem('TotalConfirmed', 'CONFIRMED')}
+      {renderHeaderItem('TotalRecovered', 'RECOVERED')}
+      {renderHeaderItem('TotalDeaths', 'DEATH', styles.smallItemContainer)}
     </View>
   );
 };

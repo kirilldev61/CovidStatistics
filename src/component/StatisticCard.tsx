@@ -6,39 +6,49 @@ interface Props {
   data: CountryCase;
 }
 const StatisticCard = ({data}: Props) => {
+  const renderItem = ({
+    description,
+    totalCases,
+    newCases,
+    newCaseColor = colors.red.red,
+  }: {
+    description: string;
+    totalCases: number;
+    newCases: number;
+    newCaseColor?: string;
+  }) => {
+    return (
+      <View style={styles.itemContainer}>
+        <Text style={styles.valueLabel}>{formatNumber(totalCases)}</Text>
+        <Text style={styles.desLabel}>{description}</Text>
+        <Text style={[styles.newConfirmLabel, {color: newCaseColor}]}>
+          +{formatNumber(newCases)}
+        </Text>
+      </View>
+    );
+  };
   return (
     <View style={styles.container}>
       <View style={styles.itemContainer}>
         <Text style={styles.countryNameLabel}>{data.Country}</Text>
       </View>
       <View style={styles.rowContainer}>
-        <View style={styles.itemContainer}>
-          <Text style={styles.valueLabel}>
-            {formatNumber(data.TotalConfirmed)}
-          </Text>
-          <Text style={styles.desLabel}>CONFIRMED</Text>
-          <Text style={styles.newConfirmLabel}>
-            +{formatNumber(data.NewConfirmed)}
-          </Text>
-        </View>
-        <View style={styles.itemContainer}>
-          <Text style={styles.valueLabel}>
-            {formatNumber(data.TotalRecovered)}
-          </Text>
-          <Text style={styles.desLabel}>RECOVERED</Text>
-          <Text style={[styles.newConfirmLabel, {color: colors.green.green}]}>
-            +{formatNumber(data.NewRecovered)}
-          </Text>
-        </View>
-        <View style={styles.itemContainer}>
-          <Text style={styles.valueLabel}>
-            {formatNumber(data.TotalDeaths)}
-          </Text>
-          <Text style={styles.desLabel}>DEATH</Text>
-          <Text style={styles.newConfirmLabel}>
-            +{formatNumber(data.NewDeaths)}
-          </Text>
-        </View>
+        {renderItem({
+          description: 'CONFIRMED',
+          totalCases: data.TotalConfirmed,
+          newCases: data.NewConfirmed,
+        })}
+        {renderItem({
+          description: 'RECOVERED',
+          totalCases: data.TotalRecovered,
+          newCases: data.NewRecovered,
+          newCaseColor: colors.green.green,
+        })}
+        {renderItem({
+          description: 'DEATH',
+          totalCases: data.TotalDeaths,
+          newCases: data.NewDeaths,
+        })}
       </View>
     </View>
   );

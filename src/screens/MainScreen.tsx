@@ -6,7 +6,6 @@ import {
   ActivityIndicator,
   ScrollView,
   Text,
-  Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -17,6 +16,7 @@ import {
   StatisticGlobalCard,
   HeaderTitle,
   StatisticChart,
+  ImageIcon,
 } from '../component';
 import {useFetchGlobalStatisticCase} from '../hooks';
 import {orderBy} from 'lodash';
@@ -88,10 +88,7 @@ const MainScreen = () => {
         </ScrollView>
         <View style={styles.floatingButton}>
           <TouchableOpacity onPress={onOpenReportCase}>
-            <Image
-              source={require('../assets/png/plus.png')}
-              style={styles.icon}
-            />
+            <ImageIcon iconName="plus" />
           </TouchableOpacity>
         </View>
       </>
@@ -130,10 +127,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  },
-  icon: {
-    width: 20,
-    height: 20,
   },
 });
 

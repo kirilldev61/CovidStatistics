@@ -9,3 +9,4 @@ export {default as CountriesCaseScreenHeader} from './CountriesCaseScreenHeader'
 export {default as SearchBar} from './SearchBar';
 export {default as Input} from './Input';
 export {default as CountryPicker} from './CountryPicker';
+export {default as ImageIcon} from './ImageIcon';

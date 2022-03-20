@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {SortController} from '../hooks';
 
 import HeaderTitle from './HeaderTitle';
 import SearchBar from './SearchBar';
+import ImageIcon from './ImageIcon';
 interface Props {
   onBack: () => void;
   sortController: SortController;
@@ -24,10 +25,7 @@ const CountriesCaseScreenHeader = ({onBack, sortController}: Props) => {
       ) : (
         <>
           <TouchableOpacity style={styles.iconContainer} onPress={onBack}>
-            <Image
-              style={styles.icon}
-              source={require('../assets/png/back.png')}
-            />
+            <ImageIcon iconName="back" />
           </TouchableOpacity>
           <HeaderTitle title="Country" boldTitle="Statistics" />
           <TouchableOpacity
@@ -35,10 +33,7 @@ const CountriesCaseScreenHeader = ({onBack, sortController}: Props) => {
             onPress={() => {
               setSearching(true);
             }}>
-            <Image
-              style={styles.icon}
-              source={require('../assets/png/search.png')}
-            />
+            <ImageIcon iconName="search" />
           </TouchableOpacity>
         </>
       )}
@@ -57,10 +52,6 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     padding: 10,
-  },
-  icon: {
-    width: 24,
-    height: 24,
   },
 });
 
